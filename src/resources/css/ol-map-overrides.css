@@ -1,0 +1,23 @@
+/* Map controls styles */
+
+.ol-zoom {
+	margin-top: 1rem;
+	margin-left: 1rem;
+	width: 1.5rem;
+}
+.ol-zoom > button {
+	display: block;
+	border: none;
+	width: inherit;
+	outline: none;
+}
+.ol-zoom > button:nth-child(1) {
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	border-bottom: 1px solid #fff;
+}
+.ol-zoom > button:nth-child(2) {
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+	border-top: 1px solid #ccc;
+}

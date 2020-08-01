@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './resources/css/index.css';
+import './resources/css/sb-admin-2.min.css';
+import './resources/css/ol-map-overrides.css';
+import './resources/css/font-awesome.min.css';
+import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
