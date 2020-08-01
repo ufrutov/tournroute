@@ -10,7 +10,7 @@ class Workspace extends React.Component {
 		super(props);
 
 		this.state = {
-			tab: "routes",
+			tab: "countries",
 			country: "Countries",
 			city: "Cities",
 			listCities: cities,
