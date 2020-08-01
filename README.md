@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tourn & Route
+
+[ufrutov.github.io/tournroute/](https://ufrutov.github.io/tournroute)
 
 ## Available Scripts
 
