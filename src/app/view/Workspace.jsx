@@ -2,6 +2,9 @@ import React from "react";
 import OLMap from "../ux/OLMap";
 import Util from "../util/Util";
 import { countries, cities, places, routes } from "../../data";
+import Countries from "./Countries";
+import Cities from "./Cities";
+import Places from "./Places";
 
 class Workspace extends React.Component {
 	_map = null;
@@ -12,11 +15,12 @@ class Workspace extends React.Component {
 		this.state = {
 			tab: "countries",
 			country: "Countries",
+			countryID: "",
 			city: "Cities",
-			listCities: cities,
-			listPlaces: places,
+			cityID: "",
+			listCities: [],
 			listRoutes: routes,
-			mapCenter: [10.6, 49.6]
+			mapCenter: [10.6, 49.6],
 		};
 	}
 	render() {
@@ -36,7 +40,8 @@ class Workspace extends React.Component {
 									className="nav-item mr-1"
 									onClick={() => {
 										this.setState({ tab: "countries" });
-									}}>
+									}}
+								>
 									<span className={`nav-link ${this.state.tab === "countries" ? "active" : ""}`}>
 										{this.state.country}
 									</span>
@@ -45,134 +50,78 @@ class Workspace extends React.Component {
 									className="nav-item mr-1"
 									onClick={() => {
 										this.setState({ tab: "cities" });
-									}}>
-									<span className={`nav-link ${this.state.tab === "cities" ? "active" : ""}`}>{this.state.city}</span>
+									}}
+								>
+									<span className={`nav-link ${this.state.tab === "cities" ? "active" : ""}`}>
+										{this.state.city}
+									</span>
 								</li>
 								<li
 									className="nav-item mr-1"
 									onClick={() => {
 										this.setState({ tab: "places" });
-									}}>
-									<span className={`nav-link ${this.state.tab === "places" ? "active" : ""}`}>Places</span>
+									}}
+								>
+									<span className={`nav-link ${this.state.tab === "places" ? "active" : ""}`}>
+										Places
+									</span>
 								</li>
 								<li
 									className="nav-item mr-1"
 									onClick={() => {
 										this.setState({ tab: "routes" });
-									}}>
-									<span className={`nav-link ${this.state.tab === "routes" ? "active" : ""}`}>Routes</span>
+									}}
+								>
+									<span className={`nav-link ${this.state.tab === "routes" ? "active" : ""}`}>
+										Routes
+									</span>
 								</li>
 							</ul>
 
 							{this.state.tab === "countries" && (
-								<div className="row mt-3">
-									{countries.map((c) => (
-										<div
-											className="col-12 col-md-6 col-lg-4 mt-3"
-											key={`country-${c.id}`}
-											onClick={() => {
-												this.setState({
-													tab: "cities",
-													city: "Cities",
-													country: c.name,
-													listCities: Util.filter(cities, "country", c.id),
-													listRoutes: Util.filter(routes, "country", c.id)
-												});
-											}}>
-											<div className="card bg-primary text-white ux-cursor-pointer">
-												<div className="card-body py-3 px-3 ">
-													<div className="d-flex align-items-center justify-content-between">
-														<h4 className="m-0 font-weight-bolder">{c.name}</h4>
-														<div className="small text-right">
-															{Util.filter(cities, "country", c.id).map((ct) => (
-																<div key={`country-city-${ct.id}`}>{ct.name}</div>
-															))}
-														</div>
-													</div>
-												</div>
-												<div className="card-footer py-2 px-3 bg-primary d-flex align-items-center justify-content-between">
-													<span className="small stretched-link">View Cities</span>
-													<div className="small">
-														<i className="fa fa-arrow-circle-right"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									))}
-								</div>
+								<Countries
+									select={(country, cities, id) => {
+										this.setState({
+											country: country.name,
+											countryID: id,
+											city: "Cities",
+											cityID: "",
+											listCities: cities,
+											tab: "cities",
+										});
+									}}
+								/>
 							)}
 
 							{this.state.tab === "cities" && (
-								<div className="row mt-3">
-									{this.state.listCities.map((c) => (
-										<div
-											className="col-12 col-md-6 col-lg-4 mt-3"
-											key={`city-${c.id}`}
-											onClick={() => {
-												this.setState(
-													{
-														tab: "places",
-														city: c.name,
-														mapCenter: Util.parseCoors(c.coordinates),
-														listPlaces: Util.filter(places, "city", c.id),
-														listRoutes: Util.filter(routes, "city", c.id)
-													},
-													() => {
-														this._map.setCoors(this.state.mapCenter, 9);
-													}
-												);
-											}}>
-											<div className="card bg-success text-white ux-cursor-pointer">
-												<div className="card-body py-3 px-3 ">
-													<div className="d-flex align-items-center justify-content-between">
-														<h4 className="m-0 font-weight-bolder">{c.name}</h4>
-														<h6 className="m-0 font-weight-bolder">{Util.getById(countries, c.country).name}</h6>
-													</div>
-												</div>
-												<div className="card-footer py-2 px-3 bg-success d-flex align-items-center justify-content-between">
-													<span className="small stretched-link">View Places</span>
-													<div className="small">
-														<i className="fa fa-arrow-circle-right"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									))}
-								</div>
+								<Cities
+									list={this.state.listCities}
+									select={(city, id) => {
+										this.setState(
+											{
+												tab: "places",
+												city: city.name,
+												cityID: id,
+												mapCenter: [city.coordinates.lon, city.coordinates.lat],
+											},
+											() => {
+												this._map.setCoors(this.state.mapCenter, 9);
+											}
+										);
+									}}
+								/>
 							)}
 
 							{this.state.tab === "places" && (
-								<div className="row mt-3">
-									{this.state.listPlaces.map((p) => {
-										const pCity = Util.getById(cities, p.city);
-										const pCountry = Util.getById(countries, pCity.country);
-
-										return (
-											<div
-												className="col-12 mt-3"
-												key={`place-${p.id}`}
-												onClick={() => {
-													this._map.removeLayer("points");
-													this._map.setPoints([Util.parseCoors(p.coordinates)]);
-													this._map.setCoors(Util.parseCoors(p.coordinates), 15);
-												}}>
-												<div className="card ux-place-card ux-cursor-pointer">
-													<div className="card-header">
-														<div className="d-flex align-items-end justify-content-between">
-															<h5 className="m-0 font-weight-bolder">{p.name}</h5>
-															<h6 className="m-0 font-weight-bolder">
-																{pCity.name}, {pCountry.name}
-															</h6>
-														</div>
-													</div>
-													<div className="card-body">
-														<p className="m-0">{p.description}</p>
-													</div>
-												</div>
-											</div>
-										);
-									})}
-								</div>
+								<Places
+									city={this.state.cityID}
+									country={this.state.countryID}
+									select={(place, id) => {
+										this._map.removeLayer("points");
+										this._map.setPoints([[place.coordinates.lon, place.coordinates.lat]]);
+										this._map.setCoors([place.coordinates.lon, place.coordinates.lat], 15);
+									}}
+								/>
 							)}
 
 							{this.state.tab === "routes" && (
@@ -188,13 +137,15 @@ class Workspace extends React.Component {
 										return (
 											<div className="col-12 mt-3" key={`route-${r.id}`}>
 												<div className="card ux-cursor-pointer">
-													<div className="card-header bg-primary text-white"
+													<div
+														className="card-header bg-primary text-white"
 														onClick={() => {
 															this._map.removeLayer("points");
 															this._map.setPoints(points);
 															this._map.setRoute(points);
 															this._map.setCoors(Util.parseCoors(rCity.coordinates), 12);
-														}}>
+														}}
+													>
 														<div className="d-flex align-items-end justify-content-between">
 															<h5 className="m-0 font-weight-bolder">{r.name}</h5>
 															<h6 className="m-0 font-weight-bolder">
@@ -208,14 +159,16 @@ class Workspace extends React.Component {
 																const place = Util.getById(places, id);
 
 																return (
-																	<div className="ux-route-item col-12 py-2"
+																	<div
+																		className="ux-route-item col-12 py-2"
 																		key={`route-place-${place.id}`}
 																		onClick={() => {
 																			this._map.removeLayer("points");
 																			this._map.setPoints(points);
 																			this._map.setRoute(points);
 																			this._map.setCoors(Util.parseCoors(place.coordinates), 15);
-																		}}>
+																		}}
+																	>
 																		<div className="d-flex align-items-center">
 																			<div className="mr-3">
 																				<i className="fa fa-circle text-primary"></i>
