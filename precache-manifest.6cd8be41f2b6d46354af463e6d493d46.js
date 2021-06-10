@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9df05eb7d3b47fb675b9683f9e718ae8",
+    "revision": "724f59f5a432c394d80fe31edcc0fd4b",
     "url": "/tournroute/index.html"
   },
   {
-    "revision": "4710d383f33dc99548e0",
-    "url": "/tournroute/static/css/main.58978633.chunk.css"
+    "revision": "d6dd8c8719ac88a5c760",
+    "url": "/tournroute/static/css/main.7a7582cf.chunk.css"
   },
   {
-    "revision": "8585acb60b81a575d7cb",
-    "url": "/tournroute/static/js/2.32a7e2b7.chunk.js"
+    "revision": "abce225d3b59b838a690",
+    "url": "/tournroute/static/js/2.5b40239b.chunk.js"
   },
   {
-    "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/tournroute/static/js/2.32a7e2b7.chunk.js.LICENSE.txt"
+    "revision": "570d362d673dab785e62d2b8563e1118",
+    "url": "/tournroute/static/js/2.5b40239b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4710d383f33dc99548e0",
-    "url": "/tournroute/static/js/main.106d4aac.chunk.js"
+    "revision": "d6dd8c8719ac88a5c760",
+    "url": "/tournroute/static/js/main.46beb6e0.chunk.js"
   },
   {
     "revision": "19f9434d9867684641ff",
