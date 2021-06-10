@@ -10,6 +10,7 @@ export default function Cities(props) {
 			DataManager.getData("city").then((data) => {
 				setItems(data);
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

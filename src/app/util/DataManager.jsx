@@ -5,10 +5,13 @@ export default class DataManager {
 		let query;
 		let collection;
 
+		// [TODO]
+		// Format
 		const cityQuery = `{ cityCollection { items { name, country { name, sys { id } }, coordinates { lat, lon }, description { json }, sys { id } } } }`;
-		const placeQuery = `{ placeCollection(limit: 1000) { items { name, description { json }, sys { id }, city { name, sys { id }, country { name, sys { id } } }, coordinates { lat, lon } } } }`;
+		const placeQuery = `{ placeCollection(limit: 1000) { items { name, schedule { json },  description { json }, sys { id }, city { name, sys { id }, country { name, sys { id } } }, coordinates { lat, lon } } } }`;
 		const cityLinkedQuery = `{ cityCollection { items { name, coordinates { lat, lon }, description { json }, sys { id } } } }`;
 		const countryQuery = `{ countryCollection { items { name, linkedFrom ${cityLinkedQuery}, sys { id } } } }`;
+		const routeQuery = `{ routeCollection { items { name, description { json }, placesCollection { items { name, schedule { json }, description { json }, sys { id }, coordinates { lat, lon } } }, sys { id }, city { name, coordinates { lat, lon }, sys { id }, country { name, sys { id } } } } } }`;
 
 		switch (key) {
 			case "country":
@@ -22,6 +25,10 @@ export default class DataManager {
 			case "place":
 				query = placeQuery;
 				collection = "placeCollection";
+				break;
+			case "route":
+				query = routeQuery;
+				collection = "routeCollection";
 				break;
 			default:
 		}

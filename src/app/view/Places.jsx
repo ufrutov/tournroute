@@ -20,6 +20,7 @@ export default function Places(props) {
 					setItems(data);
 				}
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -33,7 +34,7 @@ export default function Places(props) {
 							try {
 								select(p, p.sys.id);
 							} catch (e) {
-								console.error("[E] Places: unable to select place]", e);
+								console.error("[E] Places: unable to select place", e);
 							}
 						}}
 					>
@@ -46,6 +47,11 @@ export default function Places(props) {
 									</h6>
 								</div>
 							</div>
+							{p.schedule && (
+								<div className="card-body pt-3 pb-2 place-schedule">
+									{documentToReactComponents(p.schedule.json)}
+								</div>
+							)}
 							<div className="card-body place-description">
 								{documentToReactComponents(p.description.json)}
 							</div>

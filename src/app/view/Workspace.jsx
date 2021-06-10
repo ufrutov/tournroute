@@ -1,10 +1,9 @@
 import React from "react";
 import OLMap from "../ux/OLMap";
-import Util from "../util/Util";
-import { countries, cities, places, routes } from "../../data";
 import Countries from "./Countries";
 import Cities from "./Cities";
 import Places from "./Places";
+import Routes from "./Routes";
 
 class Workspace extends React.Component {
 	_map = null;
@@ -19,7 +18,6 @@ class Workspace extends React.Component {
 			city: "Cities",
 			cityID: "",
 			listCities: [],
-			listRoutes: routes,
 			mapCenter: [10.6, 49.6],
 		};
 	}
@@ -125,74 +123,23 @@ class Workspace extends React.Component {
 							)}
 
 							{this.state.tab === "routes" && (
-								<div className="row mt-3">
-									{this.state.listRoutes.map((r) => {
-										const rCity = Util.getById(cities, r.city);
-										const rCountry = Util.getById(countries, r.country);
-										const points = r.places.map((id) => {
-											const place = Util.getById(places, id);
-											return Util.parseCoors(place.coordinates);
-										});
-
-										return (
-											<div className="col-12 mt-3" key={`route-${r.id}`}>
-												<div className="card ux-cursor-pointer">
-													<div
-														className="card-header bg-primary text-white"
-														onClick={() => {
-															this._map.removeLayer("points");
-															this._map.setPoints(points);
-															this._map.setRoute(points);
-															this._map.setCoors(Util.parseCoors(rCity.coordinates), 12);
-														}}
-													>
-														<div className="d-flex align-items-end justify-content-between">
-															<h5 className="m-0 font-weight-bolder">{r.name}</h5>
-															<h6 className="m-0 font-weight-bolder">
-																{rCity.name}, {rCountry.name}
-															</h6>
-														</div>
-													</div>
-													<div className="card-body pt-2">
-														<div className="row">
-															{r.places.map((id) => {
-																const place = Util.getById(places, id);
-
-																return (
-																	<div
-																		className="ux-route-item col-12 py-2"
-																		key={`route-place-${place.id}`}
-																		onClick={() => {
-																			this._map.removeLayer("points");
-																			this._map.setPoints(points);
-																			this._map.setRoute(points);
-																			this._map.setCoors(Util.parseCoors(place.coordinates), 15);
-																		}}
-																	>
-																		<div className="d-flex align-items-center">
-																			<div className="mr-3">
-																				<i className="fa fa-circle text-primary"></i>
-																			</div>
-																			<div className="card ux-place-card ux-cursor-pointer">
-																				<div className="card-header">
-																					<h5 className="m-0 font-weight-bolder">{place.name}</h5>
-																				</div>
-																				<div className="card-body">
-																					<p className="small mb-2">{place.description}</p>
-																					<p className="small mb-0">{place.schedule}</p>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																);
-															})}
-														</div>
-													</div>
-												</div>
-											</div>
+								<Routes
+									city={this.state.cityID}
+									country={this.state.countryID}
+									select={(route, points, id) => {
+										this._map.removeLayer("points");
+										this._map.setPoints(points);
+										this._map.setCoors(
+											[route.city.coordinates.lon, route.city.coordinates.lat],
+											12
 										);
-									})}
-								</div>
+									}}
+									selectPlace={(place, id) => {
+										this._map.removeLayer("points");
+										this._map.setPoints([[place.coordinates.lon, place.coordinates.lat]]);
+										this._map.setCoors([place.coordinates.lon, place.coordinates.lat], 15);
+									}}
+								/>
 							)}
 						</div>
 						<div className="col-12 col-md-5">

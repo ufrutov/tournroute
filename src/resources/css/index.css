@@ -67,3 +67,11 @@ code {
 	height: 200px;
 	overflow-y: auto;
 }
+
+.place-description.small {
+	height: 150px;
+}
+
+.place-schedule p {
+	margin-bottom: 0;
+}
