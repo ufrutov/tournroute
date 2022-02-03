@@ -32,6 +32,14 @@ export default function Places(props) {
 						key={`place-${index}`}
 						onClick={() => {
 							try {
+								DataManager.getEntry("place", p.sys.id).then((data) => {
+									console.log(data);
+								});
+							} catch (e) {
+								console.error("[E] Places: unable to load place data", e);
+							}
+
+							try {
 								select(p, p.sys.id);
 							} catch (e) {
 								console.error("[E] Places: unable to select place", e);

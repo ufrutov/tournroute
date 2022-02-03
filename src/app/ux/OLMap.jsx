@@ -28,6 +28,8 @@ class OLMap extends React.Component {
 	_map = null;
 	url_osrm_nearest = "//router.project-osrm.org/nearest/v1/foot/";
 	url_osrm_route = "//router.project-osrm.org/route/v1/foot/";
+	// url_osrm_nearest = "//router.project-osrm.org/nearest/v1/driving/";
+	// url_osrm_route = "//router.project-osrm.org/route/v1/driving/";
 	icon_url = "https://openlayers.org/en/v4.6.5/examples/data/icon.png";
 
 	constructor(props) {

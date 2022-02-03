@@ -59,6 +59,19 @@ code {
 	display: none;
 }
 
+.ux-card-img {
+	height: 150px;
+  object-fit: cover;
+}
+
+.ux-card-body {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 35%, rgba(0,0,0,0) 100%);
+}
+
 .nav-link.active {
 	font-weight: 700;
 }
