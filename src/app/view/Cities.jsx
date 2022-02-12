@@ -8,7 +8,7 @@ export default function Cities(props) {
 	React.useEffect(() => {
 		if (list.length === 0) {
 			DataManager.getData("city").then((data) => {
-				setItems(data);
+				setItems(data.items);
 			});
 		}
 	}, [list]);

@@ -7,7 +7,7 @@ export default function Countries(props) {
 
 	React.useEffect(() => {
 		DataManager.getData("country").then((data) => {
-			setItems(data);
+			setItems(data.items);
 		});
 	}, []);
 

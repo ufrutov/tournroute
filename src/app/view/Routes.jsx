@@ -10,14 +10,14 @@ export default function Routes(props) {
 		if (list.length === 0)
 			DataManager.getData("route").then((data) => {
 				if (city.length > 0 || country.length > 0) {
-					const filtered = data.filter((place) => {
+					const filtered = data.items.filter((place) => {
 						if (city.length > 0) return place.city.sys.id === city;
 						if (country.length > 0) return place.city.country.sys.id === country;
 						return false;
 					});
 					setItems(filtered);
 				} else {
-					setItems(data);
+					setItems(data.items);
 				}
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
