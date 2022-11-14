@@ -56,24 +56,37 @@ const Place: NextPage = () => {
 								</h4>
 							</div>
 
-							<Image src={place.galleryCollection.items[0].url} layout="fill" />
+							<Image
+								src={place.galleryCollection.items[0].url}
+								loader={({ src }) => src}
+								layout="fill"
+							/>
 						</>
 					)}
 				</Banner>
 
 				<Container className="container py-5">
-					<div className="row g-4 w-100">
-						<div className="col-8">
+					<div className="row g-4">
+						<div className="col-md-8 col-12">
 							{place && (
 								<PlaceDescription className="p-4">
 									{documentToReactComponents(place.description.json)}
 								</PlaceDescription>
 							)}
 						</div>
-						<div className="col-4">
+						<div className="col-md-4 col-12">
 							{place && place.schedule && (
-								<PlaceDescription className="p-4">
+								<PlaceDescription className="p-4 mb-4">
 									{documentToReactComponents(place.schedule.json)}
+								</PlaceDescription>
+							)}
+							{place && (
+								<PlaceDescription className="mb-4" style={{ minHeight: "300px" }}>
+									<Image
+										src={place.galleryCollection.items[0].url}
+										loader={({ src }) => src}
+										layout="fill"
+									/>
 								</PlaceDescription>
 							)}
 						</div>

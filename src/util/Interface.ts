@@ -1,17 +1,20 @@
+import { Document } from "@contentful/rich-text-types";
+
 export interface Country {
-	name: String;
+	name: string;
 	sys: Sys;
 }
 
 export interface City {
-	name: String;
+	name: string;
 	country: Country;
+	description: RichText;
 	galleryCollection: GalleryCollection;
 	sys: Sys;
 }
 
 export interface Place {
-	name: String;
+	name: string;
 	city: City;
 	coordinates: Coordinates;
 	description: RichText;
@@ -26,7 +29,7 @@ export interface Coordinates {
 }
 
 interface Sys {
-	id: String;
+	id: string;
 }
 
 interface RichText {

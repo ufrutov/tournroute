@@ -6,7 +6,7 @@ function Footer() {
 		<nav className="navbar-dark bg-dark">
 			<div className="container py-5">
 				<div className="row mb-4">
-					<div className="col col-3">
+					<div className="col-md-3 col-6">
 						<Link href="/">
 							<a className="navbar-brand">TourAndRoute</a>
 						</Link>

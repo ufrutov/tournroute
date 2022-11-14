@@ -6,7 +6,9 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"export": "next export",
+		"deploy": "next build && next export && touch ./out/.nojekyll && gh-pages -d out -t true"
 	},
 	"dependencies": {
 		"@contentful/rich-text-react-renderer": "^15.12.1",
@@ -24,8 +26,10 @@
 		"bootstrap": "^5.2.0-beta1",
 		"eslint": "8.19.0",
 		"eslint-config-next": "12.2.2",
+		"gh-pages": "^4.0.0",
 		"react-openlayers": "^0.3.0",
 		"styled-components": "^5.3.5",
 		"typescript": "4.7.4"
-	}
+	},
+	"homepage": "https://ufrutov.github.io/tournroute/"
 }

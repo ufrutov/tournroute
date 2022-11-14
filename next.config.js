@@ -5,7 +5,11 @@ const nextConfig = {
 };
 
 module.exports = {
+	basePath: process.env.NODE_ENV === "production" ? "/tournroute" : undefined,
+	assetPrefix:
+		process.env.NODE_ENV === "production" ? "https://ufrutov.github.io/tournroute/" : undefined,
 	images: {
+		loader: "custom",
 		domains: ["images.ctfassets.net"],
 	},
 	compiler: {
