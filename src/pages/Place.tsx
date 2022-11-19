@@ -55,7 +55,7 @@ const Home = () => {
 						<div className="col-md-4 col-12">
 							{place && (
 								<PlaceDescription className="mb-4" style={{ minHeight: "400px" }}>
-									<Map center={place.coordinates} zoom={15} />
+									<Map center={place.coordinates} zoom={15} markers={[place]} />
 								</PlaceDescription>
 							)}
 							{place && (

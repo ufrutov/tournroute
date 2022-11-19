@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
@@ -14,6 +14,8 @@ import { Banner } from "@styled/Banner";
 import { Empty } from "@styled/Empty";
 
 const Home = () => {
+	const navigate = useNavigate();
+
 	const [city, setCity] = React.useState<City>();
 	const [places, setPlaces] = React.useState<Place[]>([]);
 	const [ready, setReady] = React.useState(false);
@@ -39,7 +41,17 @@ const Home = () => {
 			<Header />
 
 			<main>
-				<Banner withMap>{city && <Map center={city.coordinates} />}</Banner>
+				<Banner withMap>
+					{city && (
+						<Map
+							center={city.coordinates}
+							markers={places}
+							onMarkerClick={(newPlace) => {
+								navigate(`/place/${newPlace.sys.id}`);
+							}}
+						/>
+					)}
+				</Banner>
 
 				<Container className="container py-5" style={{ marginTop: "-10vh" }}>
 					<div className="row g-4">
