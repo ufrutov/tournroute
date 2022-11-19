@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/tournroute/static/css/main.cedb12eb.css",
-    "main.js": "/tournroute/static/js/main.e4498751.js",
+    "main.js": "/tournroute/static/js/main.d9acdd02.js",
     "index.html": "/tournroute/index.html",
     "main.cedb12eb.css.map": "/tournroute/static/css/main.cedb12eb.css.map",
-    "main.e4498751.js.map": "/tournroute/static/js/main.e4498751.js.map"
+    "main.d9acdd02.js.map": "/tournroute/static/js/main.d9acdd02.js.map"
   },
   "entrypoints": [
     "static/css/main.cedb12eb.css",
-    "static/js/main.e4498751.js"
+    "static/js/main.d9acdd02.js"
   ]
 }
