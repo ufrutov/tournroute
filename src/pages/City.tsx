@@ -18,10 +18,21 @@ const Home = () => {
 
 	const [city, setCity] = React.useState<City>();
 	const [places, setPlaces] = React.useState<Place[]>([]);
+	const [total, setTotal] = React.useState(places.length);
+	const [more, setMore] = React.useState(places.length);
 	const [ready, setReady] = React.useState(false);
+
 	const empty = Array.from({ length: 12 }, (v, k) => k + 1);
 
 	const { id } = useParams();
+
+	const loadMore = () => {
+		DataManager.getData("place", places.length, { city: city!.sys.id }).then((data) => {
+			setPlaces((state) => [...state, ...data.items]);
+			setMore(data.total - places.length);
+			setReady(true);
+		});
+	};
 
 	React.useEffect(() => {
 		if (id) {
@@ -30,11 +41,16 @@ const Home = () => {
 
 				DataManager.getData("place", 0, { city: data.sys.id }).then((data) => {
 					setPlaces(data.items);
+					setTotal(data.total);
 					setReady(true);
 				});
 			});
 		}
 	}, []);
+
+	React.useEffect(() => {
+		setMore(total - places.length);
+	}, [total, places.length]);
 
 	return (
 		<>
@@ -66,21 +82,31 @@ const Home = () => {
 									</PlaceDescription>
 								</div>
 								{places.length > 0 ? (
-									places.map((place: Place) => (
-										<div className="col-lg-3 col-md-4 col-6" key={place.sys.id}>
-											<Link to={`/place/${place.sys.id}`}>
-												<SimpleCard>
-													<SimpleCardText className="p-4">
-														<h2>{place.name}</h2>
-														<p>
-															<strong>{place.city.name}</strong>
-														</p>
-													</SimpleCardText>
-													<img src={place.galleryCollection.items[0].url} />
-												</SimpleCard>
-											</Link>
-										</div>
-									))
+									<>
+										{places.map((place: Place) => (
+											<div className="col-lg-3 col-md-4 col-6" key={place.sys.id}>
+												<Link to={`/place/${place.sys.id}`}>
+													<SimpleCard>
+														<SimpleCardText className="p-4">
+															<h2>{place.name}</h2>
+															<p>
+																<strong>{place.city.name}</strong>
+															</p>
+														</SimpleCardText>
+														<img src={place.galleryCollection.items[0].url} />
+													</SimpleCard>
+												</Link>
+											</div>
+										))}
+
+										{more > 0 && (
+											<div className="col-12 mt-4 pt-4 text-center">
+												<button className="btn btn-link btn-outline" onClick={loadMore}>
+													Load more ({more})
+												</button>
+											</div>
+										)}
+									</>
 								) : (
 									<Empty>
 										<h2 className="text-center">No places here...</h2>
