@@ -75,8 +75,15 @@ const Home = () => {
 							<>
 								<div className="col-lg-6 col-md-12 col-12">
 									<PlaceDescription className="p-4">
-										<h1 className="display-4">
-											{city!.name} <small className="lead">{city!.country.name}</small>
+										<h1 className="d-flex space-between align-items-baseline display-4">
+											<span className="flex-fill">
+												{city!.name} <small className="lead">{city!.country.name}</small>
+											</span>
+											{more > 0 && (
+												<small className="lead text-primary" role="button" onClick={loadMore}>
+													More places: {more}
+												</small>
+											)}
 										</h1>
 										<p className="lead">{documentToReactComponents(city!.description.json)}</p>
 									</PlaceDescription>
